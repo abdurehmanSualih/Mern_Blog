@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
   return (
     <nav className="flex justify-between p-4 items-center bg-sky-100">
-      <h2 className="text-2xl font-bold">MyBlog</h2>
+      <Link to='/' className="text-2xl font-bold">MyBlog</Link>
       <div className="flex gap-3 font-semibold">
-        <a href="http://">login</a>
-        <a href="http://">register</a>
+        <Link to='/login'>login</Link>
+        <Link to='/register'>register</Link>
       </div>
     </nav>
   );

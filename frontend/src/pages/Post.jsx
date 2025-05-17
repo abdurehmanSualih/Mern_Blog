@@ -1,8 +1,8 @@
-import image from '../assets/pexels.jpg';
+import image from "../assets/pexels.jpg";
 function Post() {
   return (
     <div className="p-4 sm:flex  gap-4">
-      <img src={image} alt="" className="sm:w-[50%]" />
+      <img src={image} alt="" className="sm:w-[40%]" />
       <div>
         <h2 className="text-2xl font-bold mb-5">
           How Chat Gpt And Other Ai Tools Can Transform Our World
