@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 app.use(cors());
@@ -9,6 +10,13 @@ const userRouter = require("./router/userRouter");
 
 app.use("/user", userRouter);
 
-app.listen(8000, () => {
-  console.log("server listening on prot 8000");
-});
+mongoose
+  .connect(process.env.MONGOOSE_URI)
+  .then(() => {
+    console.log("Database connected!");
+  })
+  .then(() => {
+    app.listen(process.env.Port, () => {
+      console.log(`server listening on prot ${process.env.Port}`);
+    });
+  });
