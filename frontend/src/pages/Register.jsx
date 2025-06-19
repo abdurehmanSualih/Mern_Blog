@@ -23,8 +23,9 @@ function Register() {
   return (
     <form
       onSubmit={register}
-      className=" flex justify-center items-center h-lvh"
+      className=" flex flex-col justify-center items-center h-lvh"
     >
+      <h1 className="text-3xl font-bold text-center mb-3">Register</h1>
       <div className="flex flex-col bg-sky-100 p-6 gap-1 w-2xl rounded-2xl">
         <input
           type="text"
