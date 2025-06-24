@@ -3,24 +3,38 @@ import "froala-editor/css/froala_editor.pkgd.min.css";
 
 import FroalaEditorComponent from "react-froala-wysiwyg";
 import "froala-editor/js/plugins/image.min.js";
-import { useState } from "react";
+import {useState } from "react";
+import { Navigate } from "react-router-dom";
 
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
-  console.log(title);
-  console.log(summary);
-  console.log(image);
-  console.log(description);
   const handleModelChange = (event) => {
     setDescription(event);
   };
 
+  async function createPost(e) {
+    e.preventDefault();
+    const response = await fetch("http://localhost:8000/post/", {
+      method: "POST",
+      body: JSON.stringify({ title, summary, description, image }),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.status === 201) {
+      setRedirect(true);
+    }
+
+  }
+   if (redirect) {
+    return <Navigate to="/" />;
+  }
+
   return (
-    <form className=" flex flex-col justify-center items-center h-lvh">
+    <form onSubmit={createPost} className=" flex flex-col justify-center items-center h-lvh">
       <div className="flex flex-col bg-sky-100 p-6 gap-1 w-2xl rounded-2xl">
         <input
           type="text"

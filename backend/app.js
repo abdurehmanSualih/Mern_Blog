@@ -14,8 +14,10 @@ app.use(
 app.use(express.json());
 
 const userRouter = require("./router/userRouter");
+const postRouter = require("./router/postRouter");
 
 app.use("/user", userRouter);
+app.use("/post", postRouter);
 
 mongoose
   .connect(process.env.MONGOOSE_URI)
