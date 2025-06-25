@@ -1,6 +1,8 @@
 const Post = require("../model/postModel");
 exports.createPost = async (req, res, next) => {
-  const { title, summary, description, image } = req.body;
+  const { title, summary, description} = req.body;
+  const image = req.file.path.replace(/\\/g, "/");
+  console.log(image);
   try {
     if (!title || !summary) {
       return res
