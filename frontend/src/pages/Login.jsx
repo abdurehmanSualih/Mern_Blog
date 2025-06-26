@@ -23,35 +23,40 @@ function Login() {
   if (redirect) {
     return <Navigate to="/" />;
   }
+
   return (
-    <>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 sm:px-6">
       <form
         onSubmit={login}
-        className=" flex flex-col justify-center items-center h-lvh"
+        className="w-full max-w-md bg-white p-6 sm:p-8 rounded-2xl shadow-md"
       >
-        <h1 className="text-3xl font-bold text-center mb-3">Login</h1>
-        <div className="flex flex-col bg-sky-100 p-6 gap-1 w-2xl rounded-2xl">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-6">
+          Login
+        </h1>
+        <div className="flex flex-col gap-4">
           <input
             type="email"
             placeholder="Email"
-            className="px-7 py-3 border rounded-2xl outline-0"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
-            placeholder="password"
-            className="px-7 py-3 border rounded-2xl outline-0"
+            placeholder="Password"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <button
             type="submit"
-            className="px-7 py-3 border bg-blue-400 rounded-2xl outline-0 text-amber-50 font-semibold"
+            className="w-full px-4 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
           >
             Login
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 
