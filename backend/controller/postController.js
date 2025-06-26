@@ -41,3 +41,13 @@ exports.getPost = async (req, res, next) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.getSinglePost = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const post = await Post.findById(id);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

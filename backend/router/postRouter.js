@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { createPost, getPost } = require("../controller/postController");
-const upload = require('../middleware/multerConfig');
+const {
+  createPost,
+  getPost,
+  getSinglePost,
+} = require("../controller/postController");
+const upload = require("../middleware/multerConfig");
 
-router.post("/",upload.single('image'), createPost);
+router.post("/", upload.single("image"), createPost);
 router.get("/", getPost);
+router.get("/:id", getSinglePost);
 module.exports = router;
