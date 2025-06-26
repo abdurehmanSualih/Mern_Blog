@@ -1,15 +1,13 @@
 const Post = require("../model/postModel");
 exports.createPost = async (req, res, next) => {
-  const { title, summary, description} = req.body;
-  const image = req.file.path.replace(/\\/g, "/");
+  const { title, summary, description } = req.body;
+  const image = `/images/${req.file.filename}`;
   console.log(image);
   try {
     if (!title || !summary) {
-      return res
-        .status(400)
-        .json({
-          message: "Please provide content for all required input fields.",
-        });
+      return res.status(400).json({
+        message: "Please provide content for all required input fields.",
+      });
     }
     const newPost = await Post.create({
       title,
