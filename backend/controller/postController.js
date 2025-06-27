@@ -51,3 +51,30 @@ exports.getSinglePost = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.editPost = async (req, res, next) => {
+  const { id } = req.params;
+  const { title, summary, description } = req.body;
+  const image = req.file ? `/images/${req.file.filename}` : null;
+
+  const updateData = {
+    ...(title && { title }),
+    ...(summary && { summary }),
+    ...(description && { description }),
+    ...(image && { image }),
+  };
+
+  try {
+    const updatedPost = await Post.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+
+    if (!updatedPost) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    next(error);
+  }
+};
