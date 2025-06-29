@@ -2,7 +2,6 @@ const Post = require("../model/postModel");
 exports.createPost = async (req, res, next) => {
   const { title, summary, description } = req.body;
   const image = `/images/${req.file.filename}`;
-  console.log(image);
   try {
     if (!title || !summary) {
       return res.status(400).json({
@@ -14,6 +13,7 @@ exports.createPost = async (req, res, next) => {
       summary,
       description,
       image,
+      user: req.user.id,
     });
     res.status(201).json({
       message: "Post created successfully.",
@@ -29,7 +29,7 @@ exports.createPost = async (req, res, next) => {
 
 exports.getPost = async (req, res, next) => {
   try {
-    const post = await Post.find();
+    const post = await Post.find().populate("user", "_id username");
     if (!post) {
       res.status(404).json("post not found!");
     }

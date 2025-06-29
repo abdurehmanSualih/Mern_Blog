@@ -25,10 +25,15 @@ function CreatePost() {
     formData.append("description", description);
     if (image) formData.append("image", image);
 
+    const token = localStorage.getItem("token"); 
+
     try {
       const response = await fetch("http://localhost:8000/post/", {
         method: "POST",
         body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (response.status === 201) {
@@ -43,7 +48,7 @@ function CreatePost() {
   }
 
   if (redirect) {
-    return <Navigate to="/" />;
+    return <Navigate to="/home" />;
   }
 
   return (

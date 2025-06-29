@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 function Register() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
   async function register(e) {
     e.preventDefault();
@@ -14,11 +16,14 @@ function Register() {
       headers: { "Content-Type": "application/json" },
     });
     if (response.status === 201) {
-      alert("Registered successfully");
+      setRedirect(true);
     } else {
       alert("Registration failed");
     }
-    console.log(response);
+  }
+
+  if (redirect) {
+    return <Navigate to="/login" />;
   }
 
   return (

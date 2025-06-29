@@ -1,33 +1,41 @@
+import { useContext } from "react";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const { login } = useContext(AuthContext);
 
-  async function login(e) {
+  async function loginHandler(e) {
     e.preventDefault();
     const response = await fetch("http://localhost:8000/user/signin", {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" },
-      credentials: "include",
     });
-    if (response.status === 200) {
+
+    const data = await response.json();
+
+    if (response.status === 200 && data.token) {
+      localStorage.setItem("token", data.token);
+      login(data.token);
       setRedirect(true);
+    } else {
+      console.error("Login failed:", data);
     }
-    console.log(response);
   }
 
   if (redirect) {
-    return <Navigate to="/" />;
+    return <Navigate to="/home" />;
   }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 sm:px-6">
       <form
-        onSubmit={login}
+        onSubmit={loginHandler}
         className="w-full max-w-md bg-white p-6 sm:p-8 rounded-2xl shadow-md"
       >
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-6">

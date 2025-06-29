@@ -7,14 +7,14 @@ import Home from "./pages/Home";
 import PostDetail from "./pages/PostDetail";
 import EditForm from "./pages/EditForm";
 
-
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/createPost" element={<CreatePost />} />
           <Route path="/post/:id" element={<PostDetail />} />

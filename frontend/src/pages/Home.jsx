@@ -9,7 +9,6 @@ function Home() {
         const response = await fetch("http://localhost:8000/post/");
         const data = await response.json();
         setPost(data.post);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
