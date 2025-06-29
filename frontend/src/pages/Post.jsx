@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
+import { formatISO9075 } from "date-fns";
 
-function Post({ _id,title, summary, image }) {
+
+function Post({ _id, title, summary, image, user, createdAt }) {
   return (
     <div className="p-4 sm:p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 max-w-4xl mx-auto">
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-        <Link to={`/post/${_id}`} className="block sm:w-1/3 overflow-hidden rounded-lg">
+        <Link
+          to={`/post/${_id}`}
+          className="block sm:w-1/3 overflow-hidden rounded-lg"
+        >
           <img
             src={`http://localhost:8000${image}`}
             alt={title}
@@ -18,8 +23,8 @@ function Post({ _id,title, summary, image }) {
             </h2>
           </Link>
           <div className="flex flex-wrap gap-3 sm:gap-5 text-sm text-gray-500 mb-3 sm:mb-4">
-            <span className="font-medium">John Doe</span>
-            <span>2023-01-07 11:03:14</span>
+            <span className="font-medium">{user?.userName}</span>
+            <span>{formatISO9075(createdAt)}</span>
           </div>
           <p className="text-gray-600 text-sm sm:text-base leading-relaxed line-clamp-3">
             {summary}

@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState("");
   const { login } = useContext(AuthContext);
 
   async function loginHandler(e) {
@@ -22,14 +22,18 @@ function Login() {
     if (response.status === 200 && data.token) {
       localStorage.setItem("token", data.token);
       login(data.token);
-      setRedirect(true);
+      setRedirect("true");
     } else {
       console.error("Login failed:", data);
+      setRedirect("false");
     }
   }
 
-  if (redirect) {
+  if (redirect === "true") {
     return <Navigate to="/home" />;
+  }
+  if (redirect === "false") {
+    return <Navigate to="/register" />;
   }
 
   return (

@@ -29,7 +29,7 @@ exports.createPost = async (req, res, next) => {
 
 exports.getPost = async (req, res, next) => {
   try {
-    const post = await Post.find().populate("user", "_id username");
+    const post = await Post.find().populate("user", "userName");
     if (!post) {
       res.status(404).json("post not found!");
     }
@@ -45,7 +45,7 @@ exports.getPost = async (req, res, next) => {
 exports.getSinglePost = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const post = await Post.findById(id);
+    const post = await Post.findById(id).populate("user", "userName");
     res.status(200).json(post);
   } catch (error) {
     res.status(500).json({ message: error.message });

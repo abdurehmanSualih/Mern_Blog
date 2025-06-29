@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { formatISO9075 } from "date-fns";
 
 function PostDetail() {
   const [postInfo, setPostInfo] = useState({});
@@ -16,19 +17,15 @@ function PostDetail() {
 
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 bg-white rounded-xl shadow-md">
-      
-      
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
-        {postInfo.title || "Loading..."}
+        {postInfo.title}
       </h1>
       <div className="flex flex-wrap gap-3 sm:gap-5 text-sm text-gray-500 mb-4">
-        <span className="font-medium">
-          {postInfo.author || "Unknown Author"}
-        </span>
+        <span className="font-medium">{postInfo?.user?.userName}</span>
         <span>
-          {postInfo.createdAt
-            ? new Date(postInfo.createdAt).toLocaleDateString()
-            : "Unknown Date"}
+          {postInfo?.createdAt
+            ? formatISO9075(new Date(postInfo.createdAt))
+            : "No timestamp available"}
         </span>
         <Link
           to={`/edit/${id}`}

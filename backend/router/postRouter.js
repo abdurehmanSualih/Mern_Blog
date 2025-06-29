@@ -11,6 +11,6 @@ const isAuth = require("../middleware/isAuth");
 
 router.post("/", upload.single("image"), isAuth, createPost);
 router.get("/", getPost);
-router.get("/:id", getSinglePost);
-router.put("/:id", upload.single("image"), editPost);
+router.get("/:id",  getSinglePost);
+router.put("/:id", isAuth, upload.single("image"), editPost);
 module.exports = router;
