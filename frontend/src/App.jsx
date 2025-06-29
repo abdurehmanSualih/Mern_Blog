@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import CreatePost from "./pages/createPost";
 import Home from "./pages/Home";
 import PostDetail from "./pages/PostDetail";
+import EditForm from "./pages/EditForm";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/createPost" element={<CreatePost />} />
           <Route path="/post/:id" element={<PostDetail />} />
+          <Route path="/edit/:id" element={<EditForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

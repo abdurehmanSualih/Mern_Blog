@@ -11,5 +11,5 @@ const upload = require("../middleware/multerConfig");
 router.post("/", upload.single("image"), createPost);
 router.get("/", getPost);
 router.get("/:id", getSinglePost);
-router.put("/:id", editPost);
+router.put("/:id", upload.single("image"), editPost);
 module.exports = router;
