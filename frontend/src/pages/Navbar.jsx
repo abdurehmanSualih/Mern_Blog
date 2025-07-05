@@ -14,7 +14,7 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-50 flex justify-between items-center bg-white shadow-md px-4 sm:px-6 py-4">
       <Link
-        to="/"
+        to="/home"
         className="text-2xl sm:text-3xl font-bold text-blue-600 hover:text-blue-700 transition-colors"
       >
         MyBlog

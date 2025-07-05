@@ -56,6 +56,13 @@ function EditForm() {
     setError(null);
     setLoading(true);
 
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setError("No authentication token found. Please log in.");
+      setLoading(false);
+      return;
+    }
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("summary", summary);
@@ -67,9 +74,12 @@ function EditForm() {
       const response = await fetch(`http://localhost:8000/post/${id}`, {
         method: "PUT",
         body: formData,
-        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       console.log("PUT response status:", response.status);
+
       if (response.ok) {
         setRedirect(true);
       } else {
@@ -85,7 +95,9 @@ function EditForm() {
           JSON.stringify(errorData, null, 2)
         );
         setError(
-          `Failed to update post: ${errorData.error || "Unknown error"}`
+          `Failed to update post: ${
+            errorData.error || errorData.message || "Unknown error"
+          }`
         );
       }
     } catch (error) {

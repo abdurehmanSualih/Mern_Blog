@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 const Post = require("../model/postModel");
 exports.createPost = async (req, res, next) => {
   const { title, summary, description } = req.body;
@@ -75,6 +78,20 @@ exports.editPost = async (req, res, next) => {
 
     res.status(200).json(updatedPost);
   } catch (error) {
-    next(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.deletePost = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const deletedPost = await Post.findByIdAndDelete(id);
+
+    if (!deletedPost) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+    res.status(200).json({ message: "Post deleted", post: deletedPost });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
