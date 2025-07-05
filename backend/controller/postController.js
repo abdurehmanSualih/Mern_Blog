@@ -68,6 +68,10 @@ exports.editPost = async (req, res, next) => {
   };
 
   try {
+    const existingPost = await Post.findById(id);
+    if (image && existingPost.image) {
+      clearImage(existingPost.image);
+    }
     const updatedPost = await Post.findByIdAndUpdate(id, updateData, {
       new: true,
     });
@@ -90,8 +94,14 @@ exports.deletePost = async (req, res, next) => {
     if (!deletedPost) {
       return res.status(404).json({ message: "Post not found" });
     }
+    clearImage(deletedPost.image);
     res.status(200).json({ message: "Post deleted", post: deletedPost });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+const clearImage = (filePath) => {
+  filePath = path.join(__dirname, "..", filePath);
+  fs.unlink(filePath, (err) => console.log(err));
 };
